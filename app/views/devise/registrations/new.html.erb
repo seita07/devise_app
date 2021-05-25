@@ -1,0 +1,67 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :ニックネーム %> <br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :確認用パスワード %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :生年月日 %> <br />
+    <%= f.date_select :birth_date%>
+  </div>
+
+  <div class="field">
+    <%= f.label :性別 %> <br />
+    <%= f.select :gender, [["男", "男"], ["女", "女"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :都道府県 %> <br />
+    <%= f.select :prefectures ,[["北海道", "北海道"], ["青森", "青森"],["岩手","岩手"],["宮城","宮城"],["秋田","秋田"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :職業 %> <br />
+    <%= f.select :occupation, [["高校1年生", "高校1年生"], ["高校2年生", "高校2年生"],["高校3年生","高校3年生"],["浪人生","浪人生"],["中学生","中学生"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :目標大学 %> <br />
+    <%= f.text_field :target_school %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ひとコト %> <br />
+    <%= f.text_area :comment %>
+  </div>a
+
+
+
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

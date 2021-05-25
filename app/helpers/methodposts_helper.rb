@@ -1,0 +1,2 @@
+module MethodpostsHelper
+end

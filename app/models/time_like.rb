@@ -1,0 +1,2 @@
+class TimeLike < ApplicationRecord
+end

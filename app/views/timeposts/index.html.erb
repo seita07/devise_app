@@ -1,0 +1,31 @@
+<h1>勉強時間投稿一覧</h1>
+
+<ul>
+  <% @timeposts.each do |timepost| %>
+    <li>
+    <p><strong>ユーザー名:</strong><%= link_to "#{timepost.user.name}", "/users/#{timepost.user_id}" %> ID:<%= timepost.user_id%></p>
+    <p><%= timepost.user.id%></p>
+    <p><strong>投稿内容:</strong><%= link_to "#{timepost.content}", timepost %>投稿ID:<%= timepost.id%>,  勉強時間:<%= timepost.time%>時間</p>
+    <small>
+     <%= time_ago_in_words(timepost.created_at) %>前
+    </small>
+    <% if user_signed_in? %>
+    <small>
+    <% if @timelike = TimeLike.find_by(user_id: current_user.id, timepost_id: timepost.id) %>
+      <%= link_to "いいね！済み", "/timeposts/#{timepost.id}/timelike/#{@timelike.id}", method: :delete %>
+    <% else %>
+        <%= link_to "いいね！", "/timeposts/#{timepost.id}/timelike", method: :post %>
+    <% end %>
+    <% end %>
+    <% @timelikes_count = TimeLike.where(timepost_id: timepost.id).count %>
+    <%= @timelikes_count %>いいね
+    </small>
+    <small>
+    <% @comment_count = Comment.where(timepost_id: timepost.id).count %>
+    コメント数<%= @comment_count %>
+    </small>
+    <p>__________________________________</p>
+    </li>
+  <% end %>
+</ul>
+<p><%= link_to "勉強時間投稿新規作成", new_timepost_path %></p>

@@ -1,0 +1,15 @@
+<h1>勉強方法の投稿編集ページ</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: @methodpost, local: true) do |f| %>
+      <p><%= f.label :content %>
+      <%= f.text_area :content, class: 'form-control' %></p>
+
+      <p><%= f.label :科目 %> <br />
+      <%= f.select :subjects ,[["国語", "国語"], ["数学", "数学"],["英語","英語"],["理科","理科"],["社会","社会"]] %></p>
+
+      <%= f.submit "内容を変更する", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

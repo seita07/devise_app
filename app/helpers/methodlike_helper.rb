@@ -1,0 +1,2 @@
+module MethodlikeHelper
+end

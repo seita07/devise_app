@@ -1,0 +1,40 @@
+<h1>勉強時間投稿詳細ページ</h1>
+<% if current_user %>
+<% if @timepost.user.id ==  current_user.id %>
+    <h4><%= link_to "投稿編集", edit_timepost_path %></h4>
+    <h4><%= link_to "投稿削除", "/timeposts/#{@timepost.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %></h4>
+<% end %>
+<% end %>
+<p>
+<%= @timepost.content %>
+<%= @timepost.time %>時間
+</p>
+
+<% if user_signed_in? %>
+<% if @timelike = TimeLike.find_by(user_id: current_user.id, timepost_id: @timepost.id) %>
+   <%= link_to "いいね！済み", "/timeposts/#{@timepost.id}/timelike/#{@timelike.id}", method: :delete %>
+<% else %>
+    <%= link_to "いいね！", "/timeposts/#{@timepost.id}/timelike", method: :post %>
+<% end %>
+<% end %>
+<%= @timelikes_count %>いいね
+<% if user_signed_in? %>
+<h2>コメントする</h2>
+    <%= form_with(model:[@timepost, Comment.new]) do |form| %>
+    <%= form.text_field :text %>
+    <%= form.submit %>
+    <% end %>
+<% end %>
+<h2>コメント一覧</h2>
+    <% @comments.each do |comment|%>
+    <p>コメントしたユーザー名:<%= link_to "#{comment.user.name}", user_path %></p>
+    <p><%= comment.text %></p>
+    <small>
+     <%= time_ago_in_words(comment.created_at) %>前
+    </small>
+    <% if user_signed_in? %>
+    <%if current_user.id == comment.user.id %>
+       <%= link_to "コメント削除", "/timeposts/#{@timepost.id}/comments/#{comment.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %>
+    <% end %>
+    <% end %>
+    <% end %>

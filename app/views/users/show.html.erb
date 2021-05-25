@@ -1,0 +1,19 @@
+<h1>ユーザーID：<%= @user.id %>のユーザー詳細ページ</h1>
+<% if current_user %>
+<p>ログインしているユーザーのID:<%= current_user.id %><p>
+<% if @user.id ==  current_user.id %>
+      <%= link_to "ユーザー削除", user_registration_path, method: :delete ,data: { confirm: "本当に削除しますか?" }  %> <!-- ログアウトをする -->
+<% end %>
+<% end %>
+<p>ユーザー名：<%= @user.name %></p>
+<p>Email:<%= @user.email %></p>
+<p>性別：<%= @user.gender %></p>
+<p>生年月日:<%= @user.birth_date %></p>
+<p>都道府県：<%= @user.prefectures %></p>
+<p>職業:<%= @user.occupation %></p>
+<p>目標大学：<%= @user.target_school %></p>
+<p>ひとこと:<%= @user.comment %></p>
+<% if user_signed_in? %>
+<%= render "relationships/follow_button", user: @user %>
+<% end %>
+<%= @user.followings.count %>フォロー,<%= @user.followers.count %>フォロワー

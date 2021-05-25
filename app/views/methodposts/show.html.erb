@@ -1,0 +1,28 @@
+<h1>勉強法投稿詳細ページ</h1>
+<% if current_user %>
+<% if @methodpost.user.id ==  current_user.id %>
+    <h4><%= link_to "投稿編集", edit_methodpost_path %></h4>
+    <h4><%= link_to "投稿削除", "/timeposts/#{@methodpost.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %></h4>
+<% end %>
+<% end %>
+<% if user_signed_in? %>
+<p><%= @methodpost.content %></p>
+<p><%= @methodpost.subjects %></p>
+<% if @methodlike = MethodLike.find_by(user_id: current_user.id, methodpost_id: @methodpost.id) %>
+   <%= link_to "いいね！済み", "/methodposts/#{@methodpost.id}/methodlike/#{@methodlike.id}", method: :delete %>
+<% else %>
+    <%= link_to "いいね！", "/methodposts/#{@methodpost.id}/methodlike", method: :post %>
+<% end %>
+<% end %>
+<%= @methodlikes_count %>
+<%if current_user %>
+<h2>レビューする</h2>
+<%= render 'reviews/form', review: @review, methodpost: @methodpost %>
+    <%= form_with(model:[@methodpost, Review.new]) do |form| %>
+    <%= form.text_field :text %>
+    <%= form.number_field :evaluation %>
+
+    <%= form.submit %>
+    <% end %>
+<% end %>
+<h2>レビュー一覧</h2>

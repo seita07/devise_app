@@ -1,0 +1,63 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :ニックネーム %> <br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+
+
+  <div class="field">
+    <%= f.label :生年月日 %> <br />
+    <%= f.date_select :birth_date%>
+  </div>
+
+  <div class="field">
+    <%= f.label :性別 %> <br />
+    <%= f.select :gender, [["男", "男"], ["女", "女"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :都道府県 %> <br />
+    <%= f.select :prefectures ,[["北海道", "北海道"], ["青森", "青森"],["岩手","岩手"],["宮城","宮城"],["秋田","秋田"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :職業 %> <br />
+    <%= f.select :occupation, [["高校1年生", "高校1年生"], ["高校2年生", "高校2年生"],["高校3年生","高校3年生"],["浪人生","浪人生"],["中学生","中学生"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :目標大学 %> <br />
+    <%= f.text_field :target_school %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ひとコト %> <br />
+    <%= f.text_area :comment %>
+  </div>
+
+  
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>
