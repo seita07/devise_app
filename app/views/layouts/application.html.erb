@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= Gon::Base.render_data %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/db9677780e.js" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
 
   <body>
@@ -18,14 +19,15 @@
     <% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
       <!-- ユーザーがログインしていた時の処理 -->
       <p> 現在 <%= current_user.name %> さんがログインしています </p> <!-- ここを追加します -->
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウおすすめトをする -->
+      <%= button_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
       <%= link_to "ホーム", timeposts_path %>
+      <%= link_to "レポート", report_path %>
       <%= link_to "記録", new_timepost_path %>
       <%= link_to "おすすめ勉強方法", methodposts_path %>
       <%= link_to "マイページ", "/users/#{current_user.id}}" %>
       <%= link_to "基本情報編集", edit_user_registration_path %>
     <% else %>
-      <!-- ユーザーがログインしていなかった時の処理 -->
+      <!-- ユーザーがログインしていなった時の処理 -->
       <h2> 現在ログインしていません </h2>
       <%= link_to "ログイン", new_user_session_path, class: 'post' %> <!-- ログイン画面に移行する -->
       <%= link_to "新規登録", new_user_registration_path, class: 'post' %> <!-- 新規登録画面に移行する -->

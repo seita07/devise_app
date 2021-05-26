@@ -3,22 +3,50 @@
 <ul>
   <% @timeposts.each do |timepost| %>
     <li>
-    <p><strong>ユーザー名:</strong><%= link_to "#{timepost.user.name}", "/users/#{timepost.user_id}" %> ID:<%= timepost.user_id%></p>
-    <p><%= timepost.user.id%></p>
-    <p><strong>投稿内容:</strong><%= link_to "#{timepost.content}", timepost %>投稿ID:<%= timepost.id%>,  勉強時間:<%= timepost.time%>時間</p>
+    <p><strong>ユーザー名:</strong><%= link_to "#{timepost.user.name}", "/users/#{timepost.user_id}" %></p>
+    <p><strong>投稿内容:</strong><%= timepost.content%>  勉強時間:<%= timepost.studytime%>分</p>
+    <p><strong>科目:</strong><%= timepost.subjects %></p>
+    <p><strong>作成日付:</strong><%= timepost.datetime%></p>
     <small>
      <%= time_ago_in_words(timepost.created_at) %>前
+     <% if current_user %>
+      <% if timepost.user.id ==  current_user.id %>
+          <span><%= link_to "投稿編集",  "/timeposts/#{timepost.id}/edit" %></span>
+          <span><%= link_to "投稿削除", "/timeposts/#{timepost.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %></span>
+      <% end %>
+     <% end %>
+    </small>
+
+    <% if user_signed_in? %>
+      <% @timelikes_count = TimeLike.where(timepost_id: timepost.id).count %>
+      <% if @timelike = TimeLike.find_by(user_id: current_user.id, timepost_id: timepost.id) %>
+        <%= button_to "/timeposts/#{timepost.id}/timelike/#{@timelike.id}", method: :delete do %>
+          <i class="fas fa-heart like-btn-unlike"><%= @timelikes_count %>いいね</i>
+        <% end %>
+      <% else %>
+          <%= button_to  "/timeposts/#{timepost.id}/timelike", method: :post do %>
+            <i class="fas fa-heart like-btn"><%= @timelikes_count %>いいね</i>
+          <% end %>
+      <% end %>
+    <% end %>
+
+    <%= render "comments/comment_form" ,timepost: timepost%>
+
+    <h2>コメント一覧</h2>
+    <% @comments = Comment.where(timepost_id: timepost.id)%>
+    <% @comments.each do |comment|%>
+    <p>コメントしたユーザー名:<%= link_to "#{comment.user.name}", "/users/#{comment.user.id}" %></p>
+    <p><%= comment.text %></p>
+    <small>
+     <%= time_ago_in_words(comment.created_at) %>前
     </small>
     <% if user_signed_in? %>
-    <small>
-    <% if @timelike = TimeLike.find_by(user_id: current_user.id, timepost_id: timepost.id) %>
-      <%= link_to "いいね！済み", "/timeposts/#{timepost.id}/timelike/#{@timelike.id}", method: :delete %>
-    <% else %>
-        <%= link_to "いいね！", "/timeposts/#{timepost.id}/timelike", method: :post %>
+    <%if current_user.id == comment.user.id %>
+       <%= button_to "コメント削除", "/timeposts/#{timepost.id}/comments/#{comment.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %>
     <% end %>
     <% end %>
-    <% @timelikes_count = TimeLike.where(timepost_id: timepost.id).count %>
-    <%= @timelikes_count %>いいね
+    <% end %>
+
     </small>
     <small>
     <% @comment_count = Comment.where(timepost_id: timepost.id).count %>
@@ -28,4 +56,4 @@
     </li>
   <% end %>
 </ul>
-<p><%= link_to "勉強時間投稿新規作成", new_timepost_path %></p>
+<p><%= link_to "勉強時間投稿新規作成", new_timepost_path %></p

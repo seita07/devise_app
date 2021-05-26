@@ -29,6 +29,9 @@ gem 'will_paginate', '3.1.8'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem  'jquery-rails'
 
+gem 'chart-js-rails', '~> 0.1.4'
+gem 'gon', '~> 6.2.0'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

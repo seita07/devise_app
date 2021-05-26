@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post '/users/guest_sign_in', to: 'users#guest_sign_in'
   end
   resources :users
+  get 'report', to: 'timeposts#report'
   resources :timeposts do 
     resources :comments,only: [:create,:destroy]
     resources :timelike,only: [:create,:destroy]
