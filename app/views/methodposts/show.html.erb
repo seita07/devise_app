@@ -17,7 +17,6 @@
 <%= @methodlikes_count %>
 <%if current_user %>
 <h2>レビューする</h2>
-<%= render 'reviews/form', review: @review, methodpost: @methodpost %>
     <%= form_with(model:[@methodpost, Review.new]) do |form| %>
     <%= form.text_field :text %>
     <%= form.number_field :evaluation %>

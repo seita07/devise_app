@@ -17,35 +17,23 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-
-
-  <div class="field">
-    <%= f.label :生年月日 %> <br />
-    <%= f.date_select :birth_date%>
-  </div>
-
-  <div class="field">
-    <%= f.label :性別 %> <br />
-    <%= f.select :gender, [["男", "男"], ["女", "女"]] %>
-  </div>
-
   <div class="field">
     <%= f.label :都道府県 %> <br />
-    <%= f.select :prefectures ,[["北海道", "北海道"], ["青森", "青森"],["岩手","岩手"],["宮城","宮城"],["秋田","秋田"]] %>
+    <%= f.select :prefectures ,[["未設定","未設定"],["北海道", "北海道"], ["青森", "青森"],["岩手","岩手"],["宮城","宮城"],["秋田","秋田"]] %>
   </div>
 
   <div class="field">
     <%= f.label :職業 %> <br />
-    <%= f.select :occupation, [["高校1年生", "高校1年生"], ["高校2年生", "高校2年生"],["高校3年生","高校3年生"],["浪人生","浪人生"],["中学生","中学生"]] %>
+    <%= f.select :occupation, [["未設定","未設定"],["高校1年生", "高校1年生"], ["高校2年生", "高校2年生"],["高校3年生","高校3年生"],["浪人生","浪人生"],["中学生","中学生"]] %>
   </div>
 
   <div class="field">
     <%= f.label :目標大学 %> <br />
-    <%= f.text_field :target_school %>
+    <%= f.select :target_school , [["未設定","未設定"],["北海道大学", "北海道大学"], ["東北大学", "東北大学"],["東京大学","東京大学"],["名古屋大学","名古屋大学"],["京都大学","京都大学"]] %>
   </div>
 
   <div class="field">
-    <%= f.label :ひとコト %> <br />
+    <%= f.label :自己紹介 %> <br />
     <%= f.text_area :comment %>
   </div>
 

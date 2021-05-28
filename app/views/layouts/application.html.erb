@@ -20,8 +20,9 @@
       <!-- ユーザーがログインしていた時の処理 -->
       <p> 現在 <%= current_user.name %> さんがログインしています </p> <!-- ここを追加します -->
       <%= button_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
-      <%= link_to "ホーム", timeposts_path %>
-      <%= link_to "レポート", report_path %>
+      <%= link_to "ホーム", root_path %>
+      <%= link_to "タイムライン", timeposts_path %>
+      <%= link_to "レポート", "/users/#{current_user.id}/report" %>
       <%= link_to "記録", new_timepost_path %>
       <%= link_to "おすすめ勉強方法", methodposts_path %>
       <%= link_to "マイページ", "/users/#{current_user.id}}" %>
@@ -32,7 +33,7 @@
       <%= link_to "ログイン", new_user_session_path, class: 'post' %> <!-- ログイン画面に移行する -->
       <%= link_to "新規登録", new_user_registration_path, class: 'post' %> <!-- 新規登録画面に移行する -->
       <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %>
-      <%= link_to "ホーム", timeposts_path %>
+      <%= link_to "タイムライン", timeposts_path %>
       <%= link_to "おすすめ勉強法", methodposts_path %>
     <% end %>
     </header>

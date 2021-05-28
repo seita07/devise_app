@@ -13,6 +13,7 @@ import "chartkick/chart.js"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+require('jquery')
 
 // require("chartkick")
 // require("chart.js")

@@ -2,10 +2,10 @@
 <div>
   <div>
     <%= form_with(model: @timepost, local: true) do |f| %>
-      <p><%= f.label :content %>
-      <%= f.text_field :content %></p>
+      <p><%= f.label :要点・ひとことメモ %>
+      <%= f.text_area :content %></p>
 
-      <p><%= f.label :日付 %>
+      <p><%= f.label :勉強日時 %>
       <%= f.datetime_select :datetime, :use_month_numbers => true %></p>
 
       <p><%= f.label :勉強時間 %>

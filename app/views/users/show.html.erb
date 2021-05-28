@@ -1,19 +1,76 @@
 <h1>ユーザーID：<%= @user.id %>のユーザー詳細ページ</h1>
 <% if current_user %>
-<p>ログインしているユーザーのID:<%= current_user.id %><p>
-<% if @user.id ==  current_user.id %>
-      <%= link_to "ユーザー削除", user_registration_path, method: :delete ,data: { confirm: "本当に削除しますか?" }  %> <!-- ログアウトをする -->
+      <p>ログインしているユーザーのID:<%= current_user.id %><p>
+      <% if @user.id ==  current_user.id %>
+            <%= link_to "ユーザー削除", user_registration_path, method: :delete ,data: { confirm: "本当に削除しますか?" }  %> <!-- ログアウトをする -->
+      <% end %>
+      <% if user_signed_in? %>
+      <%= render "relationships/follow_button", user: @user %>
+      <% end %>
+      <%= @user.followings.count %>フォロー,<%= @user.followers.count %>フォロワー
 <% end %>
-<% end %>
-<p>ユーザー名：<%= @user.name %></p>
-<p>Email:<%= @user.email %></p>
-<p>性別：<%= @user.gender %></p>
-<p>生年月日:<%= @user.birth_date %></p>
-<p>都道府県：<%= @user.prefectures %></p>
-<p>職業:<%= @user.occupation %></p>
-<p>目標大学：<%= @user.target_school %></p>
-<p>ひとこと:<%= @user.comment %></p>
-<% if user_signed_in? %>
-<%= render "relationships/follow_button", user: @user %>
-<% end %>
-<%= @user.followings.count %>フォロー,<%= @user.followers.count %>フォロワー
+
+<div class="tab-area">
+  <div class="tab active">
+    ユーザー情報
+  </div>
+  <div class="tab">
+    フォロー覧
+  </div>
+  <div class="tab">
+    フォロワー一覧
+  </div>
+  <div class="tab">
+    レポート
+  </div>
+  <div class="tab">
+    タイムライン
+  </div>
+</div>
+<div class="content-area">
+  <div class="content show">
+      <p>ユーザー名：<%= @user.name %></p>
+      <p>Email:<%= @user.email %></p>
+      <p>都道府県：<%= @user.prefectures %></p>
+      <p>職業:<%= @user.occupation %></p>
+      <p>目標大学：<%= @user.target_school %></p>
+      <p>自己紹介:<%= @user.comment %></p>
+  </div>
+  <div class="content">
+      <% @following_users = @user.followings%>
+      <% @following_users.each do |following_user| %>
+      <%= following_user.name%>
+    <% end%>
+  </div>
+  <div class="content">
+    <% @follower_users = @user.followers%>
+      <% @follower_users.each do |follower_user| %>
+      <%= follower_user.name%>
+    <% end%>
+  </div>
+  <div class="content">
+    <%= render "users/report" %>
+  </div>
+  <div class="content">
+    <% @timeposts.each do |timepost| %>
+    <li>
+    <p><strong>ユーザー名:</strong><%= link_to "#{timepost.user.name}", "/users/#{timepost.user_id}" %></p>
+    <p><strong>投稿内容:</strong><%= timepost.content%>  勉強時間:<%= timepost.studytime%>分</p>
+    <p><strong>科目:</strong><%= timepost.subjects %></p>
+    <p><strong>作成日付:</strong><%= timepost.datetime.strftime('%Y-%m-%d')%></p>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+$(function() {
+  let tabs = $(".tab"); // tabのクラスを全て取得し、変数tabsに配列で定義
+  $(".tab").on("click", function() { // tabをクリックしたらイベント発火
+    $(".active").removeClass("active"); // activeクラスを消す
+    $(this).addClass("active"); // クリックした箇所にactiveクラスを追加
+    const index = tabs.index(this); // クリックした箇所がタブの何番目か判定し、定数indexとして定義
+    $(".content").removeClass("show").eq(index).addClass("show"); // showクラスを消して、contentクラスのindex番目にshowクラスを追加
+  })
+})
+</script>

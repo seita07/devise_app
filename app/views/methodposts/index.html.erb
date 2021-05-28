@@ -28,21 +28,8 @@
       <% end %>
     <% end %>
     <% @review_count = Review.where(methodpost_id: methodpost.id).count %>
-    レビュー数<%= @review_count %>
+    レビュー（<%= @review_count %>）
   <% end %>
 
-  <div class="card-content">
-              <div class="content">
-                <div class="content average-score">
-                  <div class="star-rating mb-2">
-                    <div class="star-rating-front" style="width:">★★★★★</div>
-                    <div class="star-rating-back">★★★★★</div>
-                  </div>
-                  <div class="average-score-display ml-3 pt-2">
-                    点（件のレビュー）
-                  </div>
-                </div>
-              </div>
-            </div>
 </ul>
 <p><%= link_to "勉強法投稿新規作成", new_methodpost_path %></p>

@@ -1,0 +1,267 @@
+<p>１日の合計勉強時間:<%= @day_totaltime%>分</p>
+<p>１週間の合計勉強時間:<%= @weel_totaltime%>分</p>
+<p>1ヶ月の合計勉強時間:<%= @month_totaltime%>分</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+
+<p>
+<canvas id="myChart" width="300" height="200">お使いのブラウザはcanvasに対応していません。</canvas>
+</p>
+
+
+<script>
+  var subjects_list = ["国語","現代文","古文","漢文","数学","数学I・A","数学II・B","数学III","英語","英単語","英文法","英文解釈","英長文","リスニング",
+                        "日本史","世界史","倫理","政治経済","地理","現代社会","物理","化学","生物","地学","過去問"]
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+           labels:[gon.day[0], gon.day[1], gon.day[2], gon.day[3], gon.day[4],gon.day[5],gon.day[6]],
+          datasets: [{
+              label: subjects_list[0],
+              borderWidth:1,
+              backgroundColor: "#cf0000",
+              borderColor: "#810000",
+              data: [gon.study_time[0][6], gon.study_time[0][5], gon.study_time[0][4], gon.study_time[0][3], gon.study_time[0][2],gon.study_time[0][1],gon.study_time[0][0]]
+          },{
+              label: subjects_list[1],
+              borderWidth:1,
+              backgroundColor: "#bb371a",
+              borderColor: "#bb371a",
+              data: [gon.study_time[1][6], gon.study_time[1][5], gon.study_time[1][4], gon.study_time[1][3], gon.study_time[1][2],gon.study_time[1][1],gon.study_time[1][0]]
+          },{
+              label: subjects_list[2],
+              borderWidth:1,
+              backgroundColor: "#f05945",
+              borderColor: "#f05945",
+              data: [gon.study_time[2][6], gon.study_time[2][5], gon.study_time[2][4], gon.study_time[2][3], gon.study_time[2][2],gon.study_time[2][1],gon.study_time[2][0]]
+          },{
+              label: subjects_list[3],
+              borderWidth:1,
+              backgroundColor: "#c64756",
+              borderColor: "#c64756",
+              data: [gon.study_time[3][6], gon.study_time[3][5], gon.study_time[3][4], gon.study_time[3][3], gon.study_time[3][2],gon.study_time[3][1],gon.study_time[3][0]]
+          },{
+              label: subjects_list[4],
+              borderWidth:1,
+              backgroundColor: "#04009a",
+              borderColor: "#04009a",
+              data: [gon.study_time[4][6], gon.study_time[4][5], gon.study_time[4][4], gon.study_time[4][3], gon.study_time[4][2],gon.study_time[4][1],gon.study_time[4][0]]
+          },{
+              label: subjects_list[5],
+              borderWidth:1,
+              backgroundColor: "#77acf1",
+              borderColor: "#77acf1",
+              data: [gon.study_time[5][6], gon.study_time[5][5], gon.study_time[5][4], gon.study_time[5][3], gon.study_time[5][2],gon.study_time[5][1],gon.study_time[5][0]]
+          },{
+              label: subjects_list[6],
+              borderWidth:1,
+              backgroundColor: "#3edbf0",
+              borderColor: "#3edbf0",
+              data: [gon.study_time[6][6], gon.study_time[6][5], gon.study_time[6][4], gon.study_time[6][3], gon.study_time[6][2],gon.study_time[6][1],gon.study_time[6][0]]
+          },{
+              label: subjects_list[7],
+              borderWidth:1,
+              backgroundColor: "#c0fefc",
+              borderColor: "#c0fefc",
+              data: [gon.study_time[7][6], gon.study_time[7][5], gon.study_time[7][4], gon.study_time[7][3], gon.study_time[7][2],gon.study_time[7][1],gon.study_time[7][0]]
+          },{
+              label:subjects_list[8],
+              borderWidth:1,
+              backgroundColor: "#ff6701",
+              borderColor: "#ff6701",
+              data: [gon.study_time[8][6], gon.study_time[8][5], gon.study_time[8][4], gon.study_time[8][3], gon.study_time[8][2],gon.study_time[8][1],gon.study_time[8][0]]
+          },{
+              label:subjects_list[9],
+              borderWidth:1,
+              backgroundColor: "#fea82f",
+              borderColor: "#fea82f",
+              data: [gon.study_time[9][6], gon.study_time[9][5], gon.study_time[9][4], gon.study_time[9][3], gon.study_time[9][2],gon.study_time[9][1],gon.study_time[9][0]]
+          },{
+              label: subjects_list[10],
+              borderWidth:1,
+              backgroundColor: "#ffc288",
+              borderColor: "#ffc288",
+              data: [gon.study_time[10][6], gon.study_time[10][5], gon.study_time[10][4], gon.study_time[10][3], gon.study_time[10][2],gon.study_time[10][1],gon.study_time[10][0]]
+          },{
+              label: subjects_list[11],
+              borderWidth:1,
+              backgroundColor: "#ff7b54",
+              borderColor: "#ff7b54",
+              data: [gon.study_time[11][6], gon.study_time[11][5], gon.study_time[11][4], gon.study_time[11][3], gon.study_time[11][2],gon.study_time[11][1],gon.study_time[11][0]]
+          },{
+              label: subjects_list[12],
+              borderWidth:1,
+              backgroundColor: "#ffb26b",
+              borderColor: "#ffb26b",
+              data: [gon.study_time[12][6], gon.study_time[12][5], gon.study_time[12][4], gon.study_time[12][3], gon.study_time[12][2],gon.study_time[12][1],gon.study_time[12][0]]
+          },{
+              label: subjects_list[13],
+              borderWidth:1,
+              backgroundColor: "#ffd56b",
+              borderColor: "#ffd56b",
+              data: [gon.study_time[13][6], gon.study_time[13][5], gon.study_time[13][4], gon.study_time[13][3], gon.study_time[13][2],gon.study_time[13][1],gon.study_time[13][0]]
+          },{
+              label: subjects_list[14],
+              borderWidth:1,
+              backgroundColor: "#93329e",
+              borderColor: "#93329e",
+              data: [gon.study_time[14][6], gon.study_time[14][5], gon.study_time[14][4], gon.study_time[14][3], gon.study_time[14][2],gon.study_time[14][1],gon.study_time[14][0]]
+          },{
+              label: subjects_list[15],
+              borderWidth:1,
+              backgroundColor: "#9d65c9",
+              borderColor: "#9d65c9",
+              data: [gon.study_time[15][6], gon.study_time[15][5], gon.study_time[15][4], gon.study_time[15][3], gon.study_time[15][2],gon.study_time[15][1],gon.study_time[15][0]]
+          },{
+              label: subjects_list[16],
+              borderWidth:1,
+              backgroundColor: "#ffbcbc",
+              borderColor: "#ffbcbc",
+              data: [gon.study_time[16][6], gon.study_time[16][5], gon.study_time[16][4], gon.study_time[16][3], gon.study_time[16][2],gon.study_time[16][1],gon.study_time[16][0]]
+          },{
+              label: subjects_list[17],
+              borderWidth:1,
+              backgroundColor: "#f1c5c5",
+              borderColor: "#f1c5c5",
+              data: [gon.study_time[17][6], gon.study_time[17][5], gon.study_time[17][4], gon.study_time[17][3], gon.study_time[17][2],gon.study_time[17][1],gon.study_time[17][0]]
+          },{
+              label: subjects_list[18],
+              borderWidth:1,
+              backgroundColor: "#e79cc2",
+              borderColor: "#e79cc2",
+              data: [gon.study_time[18][6], gon.study_time[18][5], gon.study_time[18][4], gon.study_time[18][3], gon.study_time[18][2],gon.study_time[18][1],gon.study_time[18][0]]
+          },{
+              label: subjects_list[19],
+              borderWidth:1,
+              backgroundColor: "#f6def6",
+              borderColor: "#f6def6",
+              data: [gon.study_time[19][6], gon.study_time[19][5], gon.study_time[19][4], gon.study_time[19][3], gon.study_time[19][2],gon.study_time[19][1],gon.study_time[19][0]]
+          },{
+              label: subjects_list[20],
+              borderWidth:1,
+              backgroundColor: "#75cfb8",
+              borderColor: "#75cfb8",
+              data: [gon.study_time[20][6], gon.study_time[20][5], gon.study_time[20][4], gon.study_time[20][3], gon.study_time[20][2],gon.study_time[20][1],gon.study_time[20][0]]
+          },{
+              label: subjects_list[21],
+              borderWidth:1,
+              backgroundColor: "#bbdfc8",
+              borderColor: "#bbdfc8",
+              data: [gon.study_time[21][6], gon.study_time[21][5], gon.study_time[21][4], gon.study_time[21][3], gon.study_time[21][2],gon.study_time[21][1],gon.study_time[21][0]]
+          },{
+              label: subjects_list[22],
+              borderWidth:1,
+              backgroundColor: "#00af91",
+              borderColor: "#00af91",
+              data: [gon.study_time[22][6], gon.study_time[22][5], gon.study_time[22][4], gon.study_time[22][3], gon.study_time[22][2],gon.study_time[22][1],gon.study_time[22][0]]
+          },{
+              label: subjects_list[23],
+              borderWidth:1,
+              backgroundColor: "#007965",
+              borderColor: "#007965",
+              data: [gon.study_time[23][6], gon.study_time[23][5], gon.study_time[23][4], gon.study_time[23][3], gon.study_time[23][2],gon.study_time[23][1],gon.study_time[23][0]]
+          },{
+              label: subjects_list[24],
+              borderWidth:1,
+              backgroundColor: "#295939",
+              borderColor: "#295939",
+              data: [gon.study_time[24][6], gon.study_time[24][5], gon.study_time[24][4], gon.study_time[24][3], gon.study_time[24][2],gon.study_time[24][1],gon.study_time[24][0]]
+          }]
+
+      },
+      options: {
+          title: {
+              display: true,
+              text: '1週間の勉強時間', //グラフの見出し
+              padding:3
+          },
+          scales: {
+              xAxes: [{
+                  stacked: true, //積み上げ棒グラフにする設定
+                  categoryPercentage:0.4 //棒グラフの
+              }],
+              yAxes: [{
+                    stacked: true, //積み上げ棒グラフにする設定
+                    ticks: {     // 目盛り
+                    min: 0,      // 最小値
+                },
+                scaleLabel: {                  // 軸ラベル
+                            display: true,                 // 表示の有無
+                            labelString: '勉強時間(分)',     // ラベル
+                            fontFamily: "sans-serif",
+                            fontColor: "black",             // 文字の色
+                            fontFamily: "sans-serif",
+                            fontSize: 16                   // フォントサイズ
+                        }
+              }]
+          },
+          legend: {
+              labels: {
+                    boxWidth:0,
+                    padding:10 //凡例の各要素間の距離
+              },
+              display: true
+          },
+          tooltips:{
+            mode:'label' //マウスオーバー時に表示されるtooltip
+          }
+      }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<canvas id="myPieChart"></canvas>
+  <script>
+  var subjects_list = ["国語","現代文","古文","漢文","数学","数学I・A","数学II・B","数学III","英語","英単語","英文法","英文解釈","英長文","リスニング",
+                        "日本史","世界史","倫理","政治経済","地理","現代社会","物理","化学","生物","地学","過去問"]
+  var ctx = document.getElementById("myPieChart");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: subjects_list,
+      datasets: [{
+          backgroundColor: [
+              "#cf0000",
+              "#bb371a",
+              "#f05945",
+              "#c64756",
+              "#04009a",
+              "#77acf1",
+              "#3edbf0",
+              "#c0fefc",
+              "#ff6701",
+              "#fea82f",
+              "#ffc288",
+              "#ff7b54",
+              "#ffb26b",
+              "#ffd56b",
+              "#93329e",
+              "#9d65c9",
+              "#ffbcbc",
+              "#f1c5c5",
+              "#e79cc2",
+              "#f6def6",
+              "#75cfb8",
+              "#bbdfc8",
+              "#00af91",
+              "#007965",
+              "#295939"
+          ],
+          data: [gon.study_time[0][0],gon.study_time[1][0],gon.study_time[2][0],gon.study_time[3][0],gon.study_time[4][0],gon.study_time[5][0],gon.study_time[6][0],
+                gon.study_time[7][0],gon.study_time[8][0],gon.study_time[9][0],gon.study_time[10][0],gon.study_time[11][0],gon.study_time[12][0],gon.study_time[13][0]
+                ,gon.study_time[14][0],gon.study_time[15][0],gon.study_time[16][0],gon.study_time[17][0],gon.study_time[18][0],gon.study_time[19][0],gon.study_time[20][0],
+                gon.study_time[21][0],gon.study_time[22][0],gon.study_time[23][0],gon.study_time[24][0]]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: '今日の勉強時間'
+      },
+      pieceLabel: {
+        render: 'label',
+        position: 'default',
+        arc: true
+      }
+    }
+  });
+  </script>
