@@ -17,36 +17,11 @@
      <% end %>
     </small>
 
-    <% if user_signed_in? %>
-      <% @timelikes_count = TimeLike.where(timepost_id: timepost.id).count %>
-      <% if @timelike = TimeLike.find_by(user_id: current_user.id, timepost_id: timepost.id) %>
-        <%= button_to "/timeposts/#{timepost.id}/timelike/#{@timelike.id}", method: :delete do %>
-          <i class="fas fa-heart like-btn-unlike"><%= @timelikes_count %>いいね</i>
-        <% end %>
-      <% else %>
-          <%= button_to  "/timeposts/#{timepost.id}/timelike", method: :post do %>
-            <i class="fas fa-heart like-btn"><%= @timelikes_count %>いいね</i>
-          <% end %>
-      <% end %>
-    <% end %>
+    <%= render "timelike/like_button" ,timepost: timepost%>
 
     <%= render "comments/comment_form" ,timepost: timepost%>
 
-    <h2>コメント一覧</h2>
-    <% @comments = Comment.where(timepost_id: timepost.id)%>
-    <% @comments.each do |comment|%>
-    <p>コメントしたユーザー名:<%= link_to "#{comment.user.name}", "/users/#{comment.user.id}" %></p>
-    <p><%= comment.text %></p>
-    <small>
-     <%= time_ago_in_words(comment.created_at) %>前
-    </small>
-    <% if user_signed_in? %>
-    <%if current_user.id == comment.user.id %>
-       <%= button_to "コメント削除", "/timeposts/#{timepost.id}/comments/#{comment.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %>
-    <% end %>
-    <% end %>
-    <% end %>
-
+    <%= render "comments/comment_list" ,timepost: timepost%>
     </small>
     <small>
     <% @comment_count = Comment.where(timepost_id: timepost.id).count %>
@@ -56,4 +31,3 @@
     </li>
   <% end %>
 </ul>
-<p><%= link_to "勉強時間投稿新規作成", new_timepost_path %></p

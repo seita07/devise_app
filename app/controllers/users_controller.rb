@@ -1,34 +1,26 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:show]
   def top
-    
-  end
-  def index
-    @users = User.paginate(page: params[:page], per_page: 10)
   end
 
   def show
     @user = User.find_by(id:params[:id])
+    @following_users = @user.followings
+    @follower_users = @user.followers
     @timeposts = Timepost.where(user_id:params[:id])
-    gon.day = get_day
-    gon.study_time = get_eachsubject_weekly_totaltime 
-  end
-
-  def guest_sign_in
-    user = User.find_or_create_by!(name:'guest',email: 'guest@example.com') do |user|
-      user.password = SecureRandom.urlsafe_base64
-      # user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
-      # 例えば name を入力必須としているならば， user.name = "ゲスト" なども必要
-    end
-    sign_in user
-    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
-  end
-
-  def report
     gon.day = get_day
     gon.study_time = get_eachsubject_weekly_totaltime 
     @day_totaltime = dayly_total_studytime
     @weel_totaltime = weekly_total_studytime
     @month_totaltime = month_total_studytime
+  end
+
+  def guest_sign_in
+    user = User.find_or_create_by!(name:'guest',email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+    sign_in user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 
   

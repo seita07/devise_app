@@ -1,10 +1,5 @@
 <h1>勉強法投稿一覧</h1>
-<% if flash[:notice] %>
-      <div class="flash">
-        <h3><%= flash[:notice] %></h3>
-      </div>
-<% end %>
-
+<p><%= link_to "勉強法投稿新規作成", new_methodpost_path %></p>
 <ul>
   <% @methodposts.each do |methodpost| %>
     <li>
@@ -14,22 +9,10 @@
     <p><strong>ユーザー名:</strong><%= link_to "#{methodpost.user.name}", "/users/#{methodpost.user_id}" %> ID:<%= methodpost.user_id%></p>
     <p><strong>投稿内容:</strong><%= link_to "#{methodpost.content}", methodpost %>投稿ID:<%= methodpost.id%></p>
     <p><strong>投稿科目:</strong><%= methodpost.subjects%></p>
+    <%= render "methodlike/like_button" ,methodpost: methodpost%>
     </li>
-    <% if user_signed_in? %>
-      <% @methodlikes_count = MethodLike.where(methodpost_id: methodpost.id).count %>
-      <% if @methodlike = MethodLike.find_by(user_id: current_user.id, methodpost_id: methodpost.id) %>
-        <%= button_to  "/methodposts/#{methodpost.id}/methodlike/#{@methodlike.id}", method: :delete do %>
-          <i class="fas fa-heart like-btn-unlike"><%= @methodlikes_count %>いいね</i>
-        <% end %>
-      <% else %>
-          <%= button_to  "/methodposts/#{methodpost.id}/methodlike", method: :post do %>
-            <i class="fas fa-heart like-btn"><%= @methodlikes_count %>いいね</i>
-          <% end %>
-      <% end %>
-    <% end %>
     <% @review_count = Review.where(methodpost_id: methodpost.id).count %>
     レビュー（<%= @review_count %>）
   <% end %>
 
 </ul>
-<p><%= link_to "勉強法投稿新規作成", new_methodpost_path %></p>

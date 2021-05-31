@@ -1,0 +1,14 @@
+<h2>コメント一覧</h2>
+    <% @comments = Comment.where(timepost_id: timepost.id)%>
+    <% @comments.each do |comment|%>
+    <p>コメントしたユーザー名:<%= link_to "#{comment.user.name}", "/users/#{comment.user.id}" %></p>
+    <p><%= comment.text %></p>
+    <small>
+     <%= time_ago_in_words(comment.created_at) %>前
+    </small>
+    <% if user_signed_in? %>
+    <%if current_user.id == comment.user.id %>
+       <%= button_to "コメント削除", "/timeposts/#{timepost.id}/comments/#{comment.id}", method: :delete,data: { confirm: "本当に削除しますか?" } %>
+    <% end %>
+    <% end %>
+    <% end %>

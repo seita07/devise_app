@@ -1,0 +1,18 @@
+<%= form_with(model:[@methodpost, Review.new]) do |f| %>
+    <%= f.text_area :text %><br>
+    <div class="field" id="star">
+        <%= f.label :evaluation,  "星評価 (※必須)" ,id: "e"%>
+        <%= f.hidden_field :evaluation, id: :review_star %>
+    </div>
+    <script>
+        $('#star').raty({
+            size     : 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            scoreName: 'review[evaluation]',
+        });
+    </script>
+    <%= f.hidden_field :methodpost_id, value: @methodpost.id %>
+    <%= f.submit %>
+<% end %>

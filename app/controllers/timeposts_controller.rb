@@ -16,7 +16,7 @@ class TimepostsController < ApplicationController
       flash[:notice] = "#{@timepost.studytime}分がんばりました"
       redirect_to timeposts_url
     else
-      flash[:alert] = "methodpost alert"
+      flash[:alert] = "記録できませんでした"
       render 'new'
     end
   end

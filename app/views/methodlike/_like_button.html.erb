@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+      <% @methodlikes_count = MethodLike.where(methodpost_id: methodpost.id).count %>
+      <% if @methodlike = MethodLike.find_by(user_id: current_user.id, methodpost_id: methodpost.id) %>
+        <%= button_to  "/methodposts/#{methodpost.id}/methodlike/#{@methodlike.id}", method: :delete do %>
+          <i class="fas fa-heart like-btn-unlike"><%= @methodlikes_count %>いいね</i>
+        <% end %>
+      <% else %>
+          <%= button_to  "/methodposts/#{methodpost.id}/methodlike", method: :post do %>
+            <i class="fas fa-heart like-btn"><%= @methodlikes_count %>いいね</i>
+          <% end %>
+      <% end %>
+    <% end %>

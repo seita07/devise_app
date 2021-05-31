@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+      <% @timelikes_count = TimeLike.where(timepost_id: timepost.id).count %>
+      <% if @timelike = TimeLike.find_by(user_id: current_user.id, timepost_id: timepost.id) %>
+        <%= button_to "/timeposts/#{timepost.id}/timelike/#{@timelike.id}", method: :delete do %>
+          <i class="fas fa-heart like-btn-unlike"><%= @timelikes_count %>いいね</i>
+        <% end %>
+      <% else %>
+          <%= button_to  "/timeposts/#{timepost.id}/timelike", method: :post do %>
+            <i class="fas fa-heart like-btn"><%= @timelikes_count %>いいね</i>
+          <% end %>
+      <% end %>
+    <% end %>

@@ -1,0 +1,6 @@
+<% @timeposts.each do |timepost| %>
+    <p><strong>ユーザー名:</strong><%= link_to "#{timepost.user.name}", "/users/#{timepost.user_id}" %></p>
+    <p><strong>投稿内容:</strong><%= timepost.content%>  勉強時間:<%= timepost.studytime%>分</p>
+    <p><strong>科目:</strong><%= timepost.subjects %></p>
+    <p><strong>作成日付:</strong><%= timepost.datetime.strftime('%Y-%m-%d')%></p>
+<% end %>

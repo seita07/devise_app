@@ -1,20 +1,19 @@
 class MethodpostsController < ApplicationController
-  
+  before_action :authenticate_user!, only: [:show,:new,:create,:edit,:update,:destroy]
     def index
       @methodposts = Methodpost.all.order(created_at: :desc)
     end
-  
+
     def show
       @methodpost = Methodpost.find_by(id:params[:id])
-      @methodlikes_count = MethodLike.where(methodpost_id: @methodpost.id).count
-      # @reviews = Review.where(methodpost_id: @methodpost.id)
-      @reviews = Review.new
+      @methodlikes_count = MethodLike.where(methodpost_id: params[:id]).count
+      @reviews = Review.where(methodpost_id: params[:id])
     end
-  
+ 
     def new
       @methodpost = Methodpost.new
     end
-  
+ 
     def create
       @methodpost = current_user.methodposts.build(methodpost_params)
       if @methodpost.save
@@ -47,15 +46,7 @@ class MethodpostsController < ApplicationController
     private
   
       def methodpost_params
-        params.require(:methodpost).permit(:content,:time,:user_id,:subjects)
+        params.require(:methodpost).permit(:content,:user_id,:subjects)
       end
   
-      def correct_user
-        @methodpost = methodpost.find_by(id: params[:id])
-        if @methodpost.user_id != current_user.id
-          flash[:notice] = "権限がありません"
-          redirect_to methodposts_url
-        end
-      end
   end
-  

@@ -1,11 +1,13 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!, only: [:create,:destroy]
     def create
         @review = Review.new(review_params)
         if @review.save
-          redirect_to methodposts_url
+          flash.now[:notice] = 'レビューに成功しました'
+          redirect_to "/methodposts/#{@review.methodpost_id}"
         else
-          flash.now[:alert] = 'コメントを入力してください。'
-          redirect_to methodposts_url
+          flash.now[:alert] = 'レビューに失敗しました'
+          redirect_to "/methodposts/#{@review.methodpost_id}"
         end
     end
 
@@ -13,15 +15,14 @@ class ReviewsController < ApplicationController
         @review = Review.find(params[:id])
         if @review.destroy
             redirect_to methodposts_url
-          else
+        else
             flash.now[:alert] = 'コメント削除に失敗しました'
-            redirect_to users_url
+            redirect_to "/methodposts/#{@review.methodpost_id}"
         end
     end
 
-    
     private
     def review_params
-      params.require(:review).permit(:text,:evaluation).merge(user_id: current_user.id, methodpost_id: params[:methodpost_id])
+      params.require(:review).permit(:text,:evaluation,:methodpost_id).merge(user_id: current_user.id)
     end
 end

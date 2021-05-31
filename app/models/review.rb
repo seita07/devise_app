@@ -3,7 +3,7 @@ class Review < ApplicationRecord
     belongs_to :methodpost
     # validates :user_id, presence: true
     # validates :methodpost_id, presence: true
-    
+   
     validates :text, presence: true, length: { maximum: 100 }
     validates :evaluation, numericality: {
       less_than_or_equal_to: 5,
@@ -14,4 +14,3 @@ class Review < ApplicationRecord
       return User.find_by(id: self.user_id)
     end
 end
-  

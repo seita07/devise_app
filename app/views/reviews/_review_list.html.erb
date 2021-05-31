@@ -1,0 +1,18 @@
+
+<% @reviews.each do |review| %>
+    <p><%= review.text %></p>
+    <h4 class="mb-3">評価：<%= review.evaluation %>点 </h4>
+    <h4>user_id<%= review.user_id %> </h4>
+    <h4>post_id<%= review.methodpost_id %> </h4>
+    <div id="star-rate-<%= review.id %>"></div>
+    <script>
+          $('#star-rate-<%= review.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            score: <%= review.evaluation %>,
+        });
+    </script> 
+<% end %>
