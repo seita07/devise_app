@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   end
   resources :users
   get 'users/:id/report', to: 'users#report'
-  resources :timeposts do 
-    resources :comments,only: [:create,:destroy]
-    resources :timelike,only: [:create,:destroy]
+  resources :timeposts do
+    resources :comments, only: %i[create destroy]
+    resources :timelike, only: %i[create destroy]
   end
   resources :methodposts do
-    resources :reviews,only: [:create,:destroy]
-    resources :methodlike,only: [:create,:destroy]
+    resources :reviews, only: %i[create destroy]
+    resources :methodlike, only: %i[create destroy]
   end
-  resources :relationships, only: [:create, :destroy]
+  resources :relationships, only: %i[create destroy]
 end

@@ -6,6 +6,6 @@ class CreateMethodposts < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :methodposts, [:user_id, :created_at]
+    add_index :methodposts, %i[user_id created_at]
   end
 end

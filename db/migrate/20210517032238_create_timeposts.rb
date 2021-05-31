@@ -7,6 +7,6 @@ class CreateTimeposts < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :timeposts, [:user_id, :created_at]
+    add_index :timeposts, %i[user_id created_at]
   end
 end

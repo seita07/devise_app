@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class MethodpostTest < ActiveSupport::TestCase
   # test "the truth" do
