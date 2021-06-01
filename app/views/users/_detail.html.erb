@@ -1,3 +1,8 @@
+<% if @user.image? %>
+      <%= image_tag @user.image.url,class: "icon_image" %>
+   <% else %>
+      <img src="/assets/default.png" class = "icon_image">
+   <% end %>
 <p>ユーザー名：<%= @user.name %></p>
       <p>Email:<%= @user.email %></p>
       <p>都道府県：<%= @user.prefectures %></p>
