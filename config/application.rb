@@ -14,7 +14,7 @@ module Studyup
     config.i18n.default_locale = :ja
     config.time_zone = 'Asia/Tokyo'
 
-    config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
+    # config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
 
     # Configuration for the application, engines, and railties goes here.
     #
